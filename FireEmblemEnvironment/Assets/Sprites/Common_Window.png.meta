@@ -311,7 +311,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Common_Window_0: -7359840223984170133
+      Common_Window_1: -5677784457399223451
+      Common_Window_2: -8794554110964160296
+      Common_Window_3: 8061959000212089308
+      Common_Window_4: -8839673032468978029
+      Common_Window_5: 2938109242437222506
+      Common_Window_6: 3662503036153204895
+      Common_Window_7: -3270478678461357740
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

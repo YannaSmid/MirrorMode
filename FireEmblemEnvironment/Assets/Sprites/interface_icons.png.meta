@@ -263,7 +263,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      interface_icons_0: 2896454475289451786
+      interface_icons_1: -6310523843826627370
+      interface_icons_2: 6168446655031063093
+      interface_icons_3: 2335313528055120931
+      interface_icons_4: 5564055741571477693
+      interface_icons_5: 411404968491961775
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

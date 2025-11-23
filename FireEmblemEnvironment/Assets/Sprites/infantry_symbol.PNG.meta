@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      infantry_symbol_0: 4051734867911390574
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

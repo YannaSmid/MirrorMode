@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dorothea_Yuletide_Dancer_Mini_Unit_Idle_No_Wep_0: 1189537681326710396
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

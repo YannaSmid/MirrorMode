@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Veronica_Brave_Princess_BtlFace_BU_0: -2502404417165462191
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

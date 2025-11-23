@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Anna_Commander_Mini_Unit_Idle_0: 7542327044104165044
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

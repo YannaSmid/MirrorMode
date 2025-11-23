@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Weapon_Berkuts_Lance_0: -6320367862477536292
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

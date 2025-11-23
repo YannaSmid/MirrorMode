@@ -551,7 +551,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      battle_ui_0: 6433650720596547980
+      battle_ui_1: 324187178187537042
+      battle_ui_10: 2574577985966083923
+      battle_ui_11: 5938960200423682237
+      battle_ui_12: 5005016393202609461
+      battle_ui_13: 5930851330460014568
+      battle_ui_14: 8591028236828877310
+      battle_ui_15: 8316493603954350234
+      battle_ui_16: -1125696288802021022
+      battle_ui_17: 8042003328496973714
+      battle_ui_2: 7739173602461584972
+      battle_ui_3: -5417166824406051967
+      battle_ui_4: 6612863169255676469
+      battle_ui_5: 4214064200448604977
+      battle_ui_6: -2615890957874717740
+      battle_ui_7: -8439593938378341510
+      battle_ui_8: 422639559779186414
+      battle_ui_9: 334349705694073634
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

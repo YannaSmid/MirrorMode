@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lucina_Future_Witness_Mini_Unit_Damage_0: -3253358450358170473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

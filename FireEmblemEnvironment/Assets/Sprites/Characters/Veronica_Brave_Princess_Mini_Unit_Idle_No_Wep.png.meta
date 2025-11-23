@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Veronica_Brave_Princess_Mini_Unit_Idle_No_Wep_0: 233761931075837361
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

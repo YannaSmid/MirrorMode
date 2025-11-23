@@ -1,0 +1,29 @@
+{
+    "MirrorMode": {
+        "checkpoints": [
+            {
+                "steps": 2051,
+                "file_path": "results\\Check\\MirrorMode\\MirrorMode-2051.onnx",
+                "reward": null,
+                "creation_time": 1763923060.160686,
+                "auxillary_file_paths": [
+                    "results\\Check\\MirrorMode\\MirrorMode-2051.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2051,
+            "file_path": "results\\Check\\MirrorMode.onnx",
+            "reward": null,
+            "creation_time": 1763923060.160686,
+            "auxillary_file_paths": [
+                "results\\Check\\MirrorMode\\MirrorMode-2051.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.1+cpu"
+    }
+}

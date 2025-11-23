@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cavalry_symbol_0: -533270021732081337
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

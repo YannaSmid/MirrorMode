@@ -34,7 +34,7 @@ behaviors:
         encoding_size: null
         use_actions: true
         use_vail: false
-        demo_path: C:\Users\Yanna\Documents\GitHub\MasterThesis\MirrorMode\Assets\PlayerDemos\ID07
+        demo_path: C:\Users\Yanna\Documents\GitHub\MirrorMode\FireEmblemEnvironment\Assets\Demonstrations
     init_path: null
     keep_checkpoints: 5
     even_checkpoints: false
@@ -44,7 +44,7 @@ behaviors:
     threaded: false
     self_play: null
     behavioral_cloning:
-      demo_path: C:\Users\Yanna\Documents\GitHub\MasterThesis\MirrorMode\Assets\PlayerDemos\ID07
+      demo_path: C:\Users\Yanna\Documents\GitHub\MirrorMode\FireEmblemEnvironment\Assets\Demonstrations
       steps: 900000
       strength: 0.4
       samples_per_update: 10

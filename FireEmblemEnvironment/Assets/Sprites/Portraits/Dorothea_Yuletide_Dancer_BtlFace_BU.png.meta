@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dorothea_Yuletide_Dancer_BtlFace_BU_0: -6474209983562343519
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
