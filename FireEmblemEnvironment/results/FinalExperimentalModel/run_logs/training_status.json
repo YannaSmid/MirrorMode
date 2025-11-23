@@ -1,0 +1,29 @@
+{
+    "MirrorMode": {
+        "checkpoints": [
+            {
+                "steps": 259323,
+                "file_path": "results\\FinalExperimentalModel\\MirrorMode\\MirrorMode-259323.onnx",
+                "reward": 0.9038889115469323,
+                "creation_time": 1752935778.9771845,
+                "auxillary_file_paths": [
+                    "results\\FinalExperimentalModel\\MirrorMode\\MirrorMode-259323.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 259323,
+            "file_path": "results\\FinalExperimentalModel\\MirrorMode.onnx",
+            "reward": 0.9038889115469323,
+            "creation_time": 1752935778.9771845,
+            "auxillary_file_paths": [
+                "results\\FinalExperimentalModel\\MirrorMode\\MirrorMode-259323.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.1+cpu"
+    }
+}
