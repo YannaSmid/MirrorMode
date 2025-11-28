@@ -1,9 +1,5 @@
 # Mirror Mode: Your Biggest Enemy is Yourself
 
-## Game Environment Code by Yanna E. Smid
-
-
-
 This is a research project to investigate the possibilities of Imitation Learning and Reinforcement Learning techniques in imitating player's strategies. Unity's ML-Agent package is applied for this, and offers the required algorithms in Python. The ML-Agent toolkit v3.0.0 package is installed in the Unity editor and is developed by A. Juliani et al. \[15]. 
 
 Two game modes are implemented: Standard Mode and Mirror Mode. Both are based on Nintendo's mobile strategy game Fire Emblem Heroes.
@@ -111,10 +107,6 @@ This project would not have been possible without the help of [Code Monkey](http
 Furthermore, all UI and character sprites are collected from [Fandom Community Fire Emblem Heroes Wiki](https://feheroes.fandom.com/wiki/Game_assets_collection#UI_Sprite_sheets).
 
 
-
-### Contact
-
-If you stumble upon any problems or have any questions feel free to send me an email to yanna.e.smid@gmail.com
 
 
 
