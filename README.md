@@ -1,6 +1,6 @@
 # Mirror Mode: Your Biggest Enemy is Yourself
 
-## Master's Thesis by Yanna E. Smid
+## Game Environment Code by Yanna E. Smid
 
 
 
@@ -114,7 +114,8 @@ Furthermore, all UI and character sprites are collected from [Fandom Community F
 
 ### Contact
 
-If you stumble upon any problems or have any questions feel free to send me an email to y.e.smid@umail.leidenuniv.nl
+If you stumble upon any problems or have any questions feel free to send me an email to yanna.e.smid@gmail.com
+
 
 
 
