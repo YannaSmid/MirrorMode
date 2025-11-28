@@ -25,10 +25,9 @@ public class CombatManager : MonoBehaviour
     private bool adv = false;
     private bool disadv= false;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
-        //gridManager = GameObject.Find("FEEnv").GetComponent<GridManager>();
         gridManager = this.transform.parent.GetComponent<GridManager>();
         envManager = this.transform.GetComponent<EnvironmentManager>();
         textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
@@ -40,16 +39,6 @@ public class CombatManager : MonoBehaviour
     public void SetTarget(Transform unit, bool byEnemy)
     {
         if (target == null) target = unit;
-        else if (target != null)
-        {
-
-            // target = null;
-            // ResetCombat();
-        }
-
-        // Prepare battle is only for the calculation of combat info for the UI. This could be saved and used for the combat, 
-        // but gave unresolved problem during Training of the agents.
-        // if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining) PrepareBattle();
 
         PrepareBattle(byEnemy);
     }
@@ -64,9 +53,7 @@ public class CombatManager : MonoBehaviour
             EnemyInformation enemyScript = target.GetComponent<EnemyInformation>();
 
             damageByAttacker = CalculateDamage(unitScript, enemyScript, false); // calculate damage that player deals
-            //Debug.Log("Damage By Attacker: " + damageByAttacker);
             damageByTarget = CalculateDamage(unitScript, enemyScript, true);
-            //Debug.Log("Damage by Target: " + damageByTarget);
             canCounter = CheckCounterAttack(unitScript, enemyScript);
             canFollowUp = CheckFollowUpAttack(unitScript, enemyScript, false);
 
@@ -82,9 +69,7 @@ public class CombatManager : MonoBehaviour
             EnemyInformation enemyScript = attacker.GetComponent<EnemyInformation>();
 
             damageByAttacker = CalculateDamage(unitScript, enemyScript, true); // calculate damage that player deals
-            //Debug.Log("Damage By Attacker: " + damageByAttacker);
             damageByTarget = CalculateDamage(unitScript, enemyScript, false);
-            //Debug.Log("Damage by Target: " + damageByTarget);
             canCounter = CheckCounterAttack(unitScript, enemyScript);
             canFollowUp = CheckFollowUpAttack(unitScript, enemyScript, true);
 
@@ -168,27 +153,25 @@ public class CombatManager : MonoBehaviour
             // check if target can counter attack
             if (!targetInf.isDead && canCounter)
             {
-                //Debug.Log("Target can counter attack! " + this.transform.parent);
                 damage = damageByTarget;
                 attackerInf.TakeDamage(damage);
 
-                // // check if unit can followup on its attack
+                
 
             }
-
+            // check if unit can followup on its attack
             if (!targetInf.isDead && !attackerInf.isDead && canFollowUp)
             {
-                //Debug.Log("Attacker makes a followup attack!");
+               
                 damage = damageByAttacker;
                 targetInf.TakeDamage(damage);
             }
 
-            //NOTE TO SELF: find other way to end enemy turn if mirror mode trained model is used
 
         }
         else if (!attackerIsEnemy)
         {
-            //Debug.Log("Combat manager from: " + this.transform.parent + " and unit " + attacker + " and target " + target);
+           
             UnitInformation attackerInf = attacker.GetComponent<UnitInformation>();
             EnemyInformation targetInf = target.GetComponent<EnemyInformation>();
 
@@ -205,17 +188,15 @@ public class CombatManager : MonoBehaviour
             // check if target can counter attack
             if (!targetInf.isDead && canCounter)
             {
-                //Debug.Log("Target can counter attack! " + this.transform.parent);
+               
                 damage = damageByTarget;
                 attackerInf.TakeDamage(damage);
-
-                // // check if unit can followup on its attack
 
             }
 
             if (!targetInf.isDead && !attackerInf.isDead && canFollowUp)
             {
-                //Debug.Log("Attacker makes a followup attack!");
+                
                 damage = damageByAttacker;
                 targetInf.TakeDamage(damage);
             }
@@ -276,11 +257,11 @@ public class CombatManager : MonoBehaviour
         {
             if (player == null)
             {
-                Debug.Log("No playerrrrr in env: " + envManager.transform.parent.gameObject.name);
+                Debug.Log("No player in env: " + envManager.transform.parent.gameObject.name);
             }
             if (enemy == null)
             {
-                Debug.Log("No enemyyyyyy in env: " + envManager.transform.parent.gameObject.name);
+                Debug.Log("No enemy in env: " + envManager.transform.parent.gameObject.name);
             }
 
             int ans = enemy.atk;
@@ -301,10 +282,8 @@ public class CombatManager : MonoBehaviour
                 def = player.def;
             }
 
-            // NOTE TO SELF: maybe implement defense terrains. Grants 1.3x defense
-
             totalDamge = ans - def;
-            //Debug.Log("TOTAL DAMAGE: " + totalDamge);
+
         }
 
         else
@@ -323,8 +302,6 @@ public class CombatManager : MonoBehaviour
             {
                 def = enemy.def;
             }
-
-            // NOTE TO SELF: maybe implement defense terrains. Grants 1.3x defense
 
             totalDamge = ans - def;
 

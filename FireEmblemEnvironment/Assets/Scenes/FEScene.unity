@@ -2722,7 +2722,7 @@ MonoBehaviour:
   MaxStep: 0
   demoRecorder: {fileID: 279321245}
   augmentationManager: {fileID: 1585850086}
-  startTraining: 1
+  startTraining: 0
 --- !u!114 &279321245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2763,7 +2763,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: MirrorMode
   TeamId: 0
   m_UseChildSensors: 1

@@ -100,12 +100,7 @@ public class PlayerMetrics : MonoBehaviour
             {
                 writer.WriteLine($"[UNIT: {unit} round {round}] Kills: {totalKills}, deaths: {totalDeaths}, wins: {totalWins}, attacks: {totalAttacks}, movements: {totalMovements}, Effectives: {effective}, advantages: {advantage}, disadvantages: {disadvantage}");
             }
-            //Debug.Log($"Successfully logged:{unit}, {totalKills}, {totalDeaths}, {totalWins}, {totalAttacks}, {totalMovements}, {effective}, {advantage}, {disadvantage}");
-            // totalKills = 0;
-            // totalDeaths = 0;
-            // totalWins = 0;
-            // totalAttacks = 0;
-            // totalMovements = 0;
+
             effective = 0;
             advantage = 0;
             disadvantage = 0;

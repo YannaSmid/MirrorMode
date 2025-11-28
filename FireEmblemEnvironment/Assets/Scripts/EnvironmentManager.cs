@@ -12,7 +12,6 @@ public class EnvironmentManager : MonoBehaviour
     private Dictionary<Transform, List<Tile>> movementTiles = new Dictionary<Transform, List<Tile>>();
     private Dictionary<Transform, List<Tile>> attackTiles = new Dictionary<Transform, List<Tile>>();
     private Dictionary<Transform, List<Tile>> attackableUnits = new Dictionary<Transform, List<Tile>>();
-    //private Dictionary<Transform, List<Tile>> tilesForAttack = new Dictionary<Transform, List<Tile>>(); 
     private GridManager gridManager;
     private CombatManager combatManager;
     private AugmentationManager augmentationManager;
@@ -23,8 +22,6 @@ public class EnvironmentManager : MonoBehaviour
     private int playingSide = 0;
 
 
-
-    // Start is called before the first frame update
     void Awake()
     {
         gridManager = gameEnvironment.GetComponent<GridManager>();
@@ -32,12 +29,10 @@ public class EnvironmentManager : MonoBehaviour
         augmentationManager = GameObject.Find("AugmentationManager").GetComponent<AugmentationManager>();
         turnGameManager = this.transform.GetComponent<TurnGameManager>();
 
-        //StartNewEpisode();
     }
     void Start()
     {
-        // gridManager = gameEnvironment.GetComponent<GridManager>();
-        //setUnits();
+  
 
     }
 
@@ -51,8 +46,6 @@ public class EnvironmentManager : MonoBehaviour
         foreach (Transform unit in units)
         {
             UnitInformation unitScript = unit.GetComponent<UnitInformation>();
-            //unitScript.enabled = true;
-
             gridHalfUnit = unitScript.RandomInitialPosition(gridHalfUnit);
 
 
@@ -60,13 +53,11 @@ public class EnvironmentManager : MonoBehaviour
 
         enemySide = !enemySide;
         List<Tile> gridHalfEnemy = gridManager.GetGridHalf(enemySide);
-        //playingSide = 1 - playingSide;
+      
 
         foreach (Transform enemy in enemies)
         {
             EnemyInformation enemyScript = enemy.GetComponent<EnemyInformation>();
-            //enemyScript.enabled = true;
-
             gridHalfEnemy = enemyScript.RandomInitialPosition(gridHalfEnemy);
 
         }
@@ -90,7 +81,6 @@ public class EnvironmentManager : MonoBehaviour
         foreach (Transform unit in units)
         {
             UnitInformation unitScript = unit.GetComponent<UnitInformation>();
-            //unitScript.enabled = true;
             unitScript.ResetInformation();
             unitScript.Respawn();
 
@@ -100,7 +90,6 @@ public class EnvironmentManager : MonoBehaviour
         foreach (Transform enemy in enemies)
         {
             EnemyInformation enemyScript = enemy.GetComponent<EnemyInformation>();
-            //enemyScript.enabled = true;
             enemyScript.ResetInformation();
             enemyScript.Respawn();
 
@@ -118,8 +107,6 @@ public class EnvironmentManager : MonoBehaviour
             int x = (int)units[i].GetComponent<UnitInformation>().newPosition.x;
             int y = (int)units[i].GetComponent<UnitInformation>().newPosition.y;
 
-
-            //units[i].GetComponent<UnitInformation>().MoveUnit(x, y);
             units[i].GetComponent<UnitInformation>().StartRound();
 
             gridManager.SetUnit(x, y, units[i]);
@@ -130,17 +117,10 @@ public class EnvironmentManager : MonoBehaviour
             int x = (int)enemies[i].GetComponent<EnemyInformation>().newPosition.x;
             int y = (int)enemies[i].GetComponent<EnemyInformation>().newPosition.y;
 
-
-            //enemies[i].GetComponent<EnemyInformation>().MoveUnit(x, y);
-            //turnGameManager.disableTurn(enemies[i], true);
             enemies[i].GetComponent<EnemyInformation>().StartRound();
-            //enemies[i].GetComponent<EnemyInformation>().moved = true;
             gridManager.SetUnit(x, y, enemies[i]);
         }
 
-
-        // GameManager.Instance.SwitchState(GameState.initializeInformation);
-        //if (!augmentated) GameManager.Instance.SwitchState(GameState.prepareAugmentation);
 
         if (!augmentationManager.enableAugmentation)
         {
@@ -153,19 +133,6 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
-    // public void InitializeInformation()
-    // {
-    //     for (int i = 0; i < units.GetLength(0); i++){
-
-    //         units[i].GetComponent<UnitInformation>().updateInformation();
-    //     }
-    //     for (int i = 0; i < enemies.GetLength(0); i++){
-
-    //         enemies[i].GetComponent<EnemyInformation>().updateInformation();
-
-    //     }
-
-    // }
 
     public void InitializeInformation(int phase)
     {
@@ -194,8 +161,6 @@ public class EnvironmentManager : MonoBehaviour
                 {
 
                     units[i].GetComponent<UnitInformation>().updateInformation();
-                    // call new episode for training
-                    // units[i].GetComponent<StrategyUnitAgent>().EndEpisode();
                     units[i].GetComponent<StrategyUnitAgent>().EndEpisodeExternally();
 
                 }
@@ -211,7 +176,7 @@ public class EnvironmentManager : MonoBehaviour
 
 
                 }
-                // 
+              
                 if (!augmentationManager.enableAugmentation) turnGameManager.StartPlayerTurn();
 
                 break;
@@ -240,14 +205,14 @@ public class EnvironmentManager : MonoBehaviour
 
         for (int i = 0; i < units.Length; i++)
         {
-            //units[i].localPosition = gridManager.MirrorPosition(units[i].localPosition, mirrored[0], mirrored[1]);
+           
             units[i].localPosition = gridManager.MirrorPosition(units[i].GetComponent<UnitInformation>().newPosition, mirrored[0], mirrored[1]);
             units[i].GetComponent<UnitInformation>().newPosition = units[i].localPosition;
         }
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            // enemies[i].localPosition = gridManager.MirrorPosition(enemies[i].localPosition, mirrored[0], mirrored[1]);
+           
             enemies[i].localPosition = gridManager.MirrorPosition(enemies[i].GetComponent<EnemyInformation>().newPosition, mirrored[0], mirrored[1]);
             enemies[i].GetComponent<EnemyInformation>().newPosition = enemies[i].localPosition;
         }
@@ -297,13 +262,10 @@ public class EnvironmentManager : MonoBehaviour
 
 
         if (!selectedUnit) {
-            //unitSelected = true;
             selectedUnit = unit;
         }
         else {
-            //unitSelected = false;
             selectedUnit = null;
-            //combatManager.ResetCombat();
         }
 
     }
@@ -343,7 +305,7 @@ public class EnvironmentManager : MonoBehaviour
         if (isEnemy) unitType = unit.GetComponent<EnemyInformation>().unitType;
         else unitType = unit.GetComponent<UnitInformation>().unitType;
 
-        // --- Movement Range BFS ---
+        // Movement Range BFS 
         while (queue.Count > 0)
         {
             Tile currentTile = queue.Dequeue();
@@ -366,7 +328,7 @@ public class EnvironmentManager : MonoBehaviour
             {
                 if (neighbor == null || movementCost.ContainsKey(neighbor)) continue;
 
-                // Check if neighbor contains enemy
+                // check if neighbor contains enemy
                 Transform containUnit = gridManager.GetUnit((int)neighbor.transform.localPosition.x, (int)neighbor.transform.localPosition.y);
 
                 bool isOpponent = containUnit && ((containUnit.gameObject.tag == "Enemy" && unit.gameObject.tag == "Player") ||
@@ -374,7 +336,7 @@ public class EnvironmentManager : MonoBehaviour
 
                 bool isBlocked = !neighbor.IsWalkable || isOpponent;
 
-                // Still add to attackable list if within reach but blocked by enemy
+                // still add to attackable list if within reach but blocked by enemy
                 if (isOpponent && currentStep + 1 <= stepSize + attackRange)
                 {
                     if (!attackTilesList.Contains(neighbor))
@@ -390,7 +352,7 @@ public class EnvironmentManager : MonoBehaviour
             }
         }
 
-        // --- Attack Range BFS (from each movement tile) ---
+        // Attack Range BFS
         HashSet<Tile> visitedAttackTiles = new HashSet<Tile>();
 
         foreach (Tile moveTile in moveTilesList)
@@ -440,7 +402,6 @@ public class EnvironmentManager : MonoBehaviour
             }
         }
 
-        // --- Save final results ---
         movementTiles[unit] = moveTilesList;
         attackTiles[unit] = attackTilesList.Except(attackableUnitsList).ToList();
         attackableUnits[unit] = attackableUnitsList;
@@ -545,7 +506,6 @@ public class EnvironmentManager : MonoBehaviour
 
             if (won)
             {
-                Debug.Log("Game WONNNN");
                 agent.AddReward(1f);
             }
             else

@@ -45,7 +45,6 @@ public class EnemyInformation : MonoBehaviour
     public List<Tile> tilesInRangeAttack = new List<Tile>();
 
     public bool canClick = false;
-    //private bool clicked = false;
     public bool isTurn = false;
     public bool isSelected = false; // only true for the unit that is selected
     public bool isVulnerable = false; // can be attacked by enemy
@@ -66,11 +65,10 @@ public class EnemyInformation : MonoBehaviour
         Start();
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        //this.transform.position = initialPosition;
-        //newPosition = initialPosition;
+
 
         spriteRenderer = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         weaponSprite = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -112,12 +110,12 @@ public class EnemyInformation : MonoBehaviour
         if (augmentationManager.enableAugmentation && !envManager.augmentated)
         {
             SetRandomTypes(weaponTypes.Count(), unitTypes.Count());
-            //SetRandomTypes(3, unitTypes.Count());
+ 
         }
         else if (DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining)
         {
             SetRandomTypes(weaponTypes.Count(), unitTypes.Count());
-            //SetRandomTypes(3, unitTypes.Count());
+ 
         }
         
 
@@ -129,8 +127,7 @@ public class EnemyInformation : MonoBehaviour
                 initialPosition = gridManager.MirrorPosition(new Vector2(mirroredUnit.initialPosition.x, mirroredUnit.initialPosition.y), true, true);
                 newPosition = initialPosition;
 
-
-
+                // only randomize stats for original enviroment
                 if (!envManager.augmentated) RandomizeStats();
 
             }
@@ -182,27 +179,27 @@ public class EnemyInformation : MonoBehaviour
         {
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
+ 
         }
 
         else if (unitType == "cavalry")
         {
             stepSize = 3;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
+           
         }
         else if (unitType == "flying")
         {
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
+            
         }
 
         else if (unitType == "heavyArmor")
         {
             stepSize = 1;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
+           
         }
 
 
@@ -211,7 +208,7 @@ public class EnemyInformation : MonoBehaviour
             unitType = "infantry";
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
+           
         }
 
         if (unitWeapon == null)
@@ -321,12 +318,12 @@ public class EnemyInformation : MonoBehaviour
         return System.Array.IndexOf(unitTypes, unitType);
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         // Check if it's your turn
         isTurn = turnGameManager.checkTurn(this.gameObject.transform, isEnemy);
-        // update unit information after every move
+
      
 
     }
@@ -342,10 +339,7 @@ public class EnemyInformation : MonoBehaviour
         attackTilesList = envManager.GetAttackTiles(this.transform);
         attackableUnitTiles = envManager.GetAttackableUnitsTiles(this.transform);
 
-        // training agent info
-        // trainingAgent.movementTiles = moveTilesList;
-        // trainingAgent.attackTiles = attackTilesList;
-        // trainingAgent.attackableUnits = attackableUnitTiles;
+
 
 
         currentTile = gridManager.GetTileAtPosition((int)newPosition.x, (int)newPosition.y);
@@ -400,8 +394,7 @@ public class EnemyInformation : MonoBehaviour
         this.transform.localPosition = newPosition;
 
         turnGameManager.disableTurn(this.gameObject.transform, isEnemy);
-        // envManager.InitializeInformation(1);
-        // envManager.InitializeInformation(0);
+
 
     }
 
@@ -425,17 +418,13 @@ public class EnemyInformation : MonoBehaviour
 
         gridManager.RemoveUnit((int)prevPosition.x, (int)prevPosition.y);
 
-        // if character doesn't want to attack you can end turn
-        // if (!combatManager.instantiateAttack){
-        //     endUnitTurn();
-        // } //changed this now
 
     }
 
     public void performAction(Tile tile, int actionType)
     {
         Vector2 selectedTile = new Vector2();
-        //int targetInd = -1;
+
       
         switch (actionType)
         {
@@ -458,7 +447,7 @@ public class EnemyInformation : MonoBehaviour
 
         }
 
-        endUnitTurn(); // should this be uncommented?
+        endUnitTurn();
 
     }
 
@@ -480,25 +469,9 @@ public class EnemyInformation : MonoBehaviour
             targetInd = envManager.GetUnitIndex(combatManager.GetTarget(), targetScript.isEnemy);
         }
 
-        // NOTE TO SELF: should it work for training agent???
-        // for now use perform action
+  
         performAction(tile, actionType);
-        // if (trainingAgent)
-        // {
-        //     trainingAgent.PushActionThrough(index, actionType, targetInd);
 
-        //     int thisInd = envManager.GetUnitIndex(this.transform, isEnemy);
-
-        //     // only the original environment should forward the actions to the other environments
-        //     if (augmentationManager.enableAugmentation)
-        //     {
-        //         if (!envManager.augmentated) augmentationManager.ForwardAction(selectedTile, actionType, thisInd, targetInd, isEnemy);
-        //     }
-
-
-        // }
-        // else
-        // {
         int thisInd = envManager.GetUnitIndex(this.transform, isEnemy);
 
         // only the original environment should forward the actions to the other environments
@@ -506,7 +479,7 @@ public class EnemyInformation : MonoBehaviour
         {
             if (!envManager.augmentated) augmentationManager.ForwardAction(selectedTile, actionType, thisInd, targetInd, isEnemy);
         }
-        //}
+      
 
     }
 
@@ -537,23 +510,16 @@ public class EnemyInformation : MonoBehaviour
         }
         turnGameManager.disableTurn(this.gameObject.transform, isEnemy);
 
-        //isSelected = false;
-        // clicked = false;
-        //canClick = false;
-        //envManager.setSelectedUnit(null);
-        //envManager.unitSelected = false;
-        //combatManager.ResetCombat();
         attackableUnitTiles.Clear();
 
         foreach (Tile tile in tilesInRangeAttack)
         {
-            //tile.HighlightSelected();
+    
             tile.launchAttack = false;
         }
         
         tilesInRangeAttack.Clear();
 
-        //CancelAttack();
         envManager.InitializeInformation(1);
         envManager.InitializeInformation(0);
 
@@ -567,7 +533,7 @@ public class EnemyInformation : MonoBehaviour
     {
         if (isDead || isTurn)
         {
-            //turnGameManager.disableTurn(this.transform, isEnemy);
+    
             return;
         }
         if (isVulnerable && canClick) // Player clicked on enemy to attack
@@ -575,10 +541,8 @@ public class EnemyInformation : MonoBehaviour
 
             combatManager.instantiateAttack = true;
 
-            //isVulnerable = false;
             canClick = false;
             envManager.selectedUnit.GetComponent<UnitInformation>().WantToAttack(this);
-            //combatManager.SetTarget(this.transform);
             if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining) textManager.ShowCombatUI(true);
        
         }
@@ -654,18 +618,17 @@ public class EnemyInformation : MonoBehaviour
 
     public void WantToAttack(UnitInformation unit)
     {
-        Debug.Log("This unit " + this.transform.gameObject.name + " wants to attack " + unit.transform.gameObject.name +  " in " +  envManager.transform.parent.gameObject.name);
         Tile targetTile = unit.currentTile;
         tilesInRangeAttack = gridManager.GetAttackTilesInRange(targetTile, attackRange, moveTilesList);
         foreach (Tile tile in tilesInRangeAttack)
         {
-            //tile.HighlightSelected();
+           
             tile.launchAttack = true;
         }
         combatManager.SetAttacker(this.transform);
         combatManager.SetTarget(unit.transform, isEnemy);
         if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining) textManager.ShowCombatUI(true);
-        //combatManager.instantiateAttack = true; //just changed
+    
 
     }
 
@@ -673,7 +636,7 @@ public class EnemyInformation : MonoBehaviour
     {
         foreach (Tile tile in tilesInRangeAttack)
         {
-            //tile.HighlightSelected();
+           
             tile.launchAttack = false;
         }
         combatManager.ResetCombat();
@@ -686,7 +649,7 @@ public class EnemyInformation : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Enemy taking damage: " + damage);
+       
         health -= damage;
         textManager.AdjustStatValueEnemy(unitIndex, 0, health);
         if (health <= 0)
@@ -711,22 +674,17 @@ public class EnemyInformation : MonoBehaviour
         spriteRenderer.enabled = false;
         weaponSprite.enabled = false;
         isVulnerable = false;
-        //ResetInformation();
-        //this.enabled = false;
-        //Destroy(gameObject);
 
     }
 
     public void Respawn()
     {
-        //Debug.Log("Respawning unit: " + this.transform.gameObject.name);
         GetComponent<BoxCollider2D>().enabled = true;
         isDead = false;
         health = initialHP;
 
         spriteRenderer.enabled = true;
         weaponSprite.enabled = true;
-        //this.enabled = true;
     }
 
 
@@ -737,7 +695,6 @@ public class EnemyInformation : MonoBehaviour
         float fadeRate = 0.1f;
 
         while (spriteRenderer.color.a > 0.1f){
-            //spriteRenderer.color -= new Color(0,0,0,10);
             alpha -= fadeRate * Time.deltaTime;
             alpha = Mathf.Clamp01(alpha);
 
@@ -759,14 +716,12 @@ public class EnemyInformation : MonoBehaviour
 
 
         isSelected = false;
-        // clicked = false;
         canClick = false;
         envManager.setSelectedUnit(null);
         envManager.unitSelected = false;
 
         if (turnGameManager.gameEnded)
         {
-            //if (!envManager.augmentated) turnGameManager.EndGame();
 
             if (augmentationManager.enableAugmentation)
             {

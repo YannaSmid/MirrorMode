@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     void Awake(){
         Instance = this;
     }
-    // Start is called before the first frame update
+  
     void Start()
     {
         
@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
 
             case GameState.generateGrid:
                 Debug.Log("Generategrid!");
-                //gridManager.GenerateGrid();
                 augmentationManager.PrepareGrids();
                 break;
 
@@ -58,26 +57,22 @@ public class GameManager : MonoBehaviour
 
             case GameState.setUnits:
                 Debug.Log("Set Units!");
-                //envManager.setUnits();
                 augmentationManager.PrepareUnits();
                 break;
 
             // Call each new turn!
             case GameState.initializeInformation:
                 Debug.Log("Initialize Information!");
-                //envManager.InitializeInformation();
                 augmentationManager.PrepareInitialization();
                 break;
 
             case GameState.playerTurn:
                 Debug.Log("Player Turn!");
-                //turnManager.StartPlayerTurn();
                 augmentationManager.StartTurns();
                 break;
 
             case GameState.enemyTurn:
                 Debug.Log("Enemy turn");
-                //turnManager.StartEnemyTurn();
                 augmentationManager.StartEnemyTurns();
                 break;
 
@@ -102,7 +97,6 @@ public enum GameState
         randomizePosition =1,
         prepareAugmentation = 2,
         setUnits = 3,
-        //setEnemies = 2,
         initializeInformation = 4,
         playerTurn = 5,
         enemyTurn = 6,

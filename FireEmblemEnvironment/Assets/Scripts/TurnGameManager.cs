@@ -27,7 +27,7 @@ public class TurnGameManager : MonoBehaviour
     public int totalRounds = 1;
     private int turn = 0;
 
-    // Start is called before the first frame update
+  
     void Awake()
     {
         gridManager = this.transform.parent.GetComponent<GridManager>();
@@ -47,8 +47,7 @@ public class TurnGameManager : MonoBehaviour
 
     public void BeginNewRound()
     {
-        // unitTurns = new Dictionary<Transform, bool>();
-        // enemyTurns = new Dictionary<Transform, bool>();
+
         if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining && !envManager.augmentated)
         {
         
@@ -69,7 +68,7 @@ public class TurnGameManager : MonoBehaviour
         {
             textManager.ShowPlayerTurn();
             turn += 1;
-            //textManager.ShowNewTurnCount(turn);
+
         }
 
         foreach (var unit in unitTurns.Keys.ToList())
@@ -187,7 +186,7 @@ public class TurnGameManager : MonoBehaviour
                 enemyUnits -= 1;
 
                 LogMetrics(4 - enemyUnits, 4 - playerUnits, 1);
-                //if (!envManager.augmentated) StartCoroutine(WaitBetweenTurns(2));
+           
             }
         }
         else
@@ -202,12 +201,12 @@ public class TurnGameManager : MonoBehaviour
                 startTurn = false;
                 playerUnits -= 1;
                 LogMetrics(4 - enemyUnits, 4 - playerUnits, 0);
-                //if (!envManager.augmentated) StartCoroutine(WaitBetweenTurns(2));
+
             }
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (gameEnded) return;
@@ -231,17 +230,14 @@ public class TurnGameManager : MonoBehaviour
             {
                 StartCoroutine(WaitBetweenTurns(2));
             }
-            
-            // GameManager.Instance.SwitchState(GameState.enemyTurn);
-            //startTurn = false;
+          
 
         }
 
         else if (startTurn && isEnemyTurn)
         {
             foreach (var enemy in enemyTurns.Keys.ToList()){
-                //enemy.moved = true;
-                //enemyTurns[enemy.gameObject.transform] = true;
+    
                 if (enemyTurns[enemy] == true) return;
 
             }
@@ -273,11 +269,7 @@ public class TurnGameManager : MonoBehaviour
         {
             case 0:
             GameManager.Instance.SwitchState(GameState.enemyTurn);
-            // else
-            // {
-            //     // Start turn individuallyper env when training is happening
-            //     StartEnemyTurn();
-            // }
+
             break;
 
             case 1:

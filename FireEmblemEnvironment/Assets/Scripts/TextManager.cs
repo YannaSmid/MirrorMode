@@ -201,18 +201,18 @@ public class TextManager : MonoBehaviour
                 }
                 else
                 {
-                    //DamageBy_P = damageByPlayer.ToString();
+                    
                     DamageBy_P.text = string.Format("{0}", damageByPlayer);
                 }
 
                 if (counter)
                 {
-                    //DamageBy_E = damageByEnemy.ToString();
+                   
                     DamageBy_E.text = string.Format("{0}", damageByEnemy);
                 }
                 else
                 {
-                    //DamageBy_E = " - ";
+                  
                     DamageBy_E.text = string.Format("-");
                     damageByEnemy = 0;
 
@@ -237,18 +237,18 @@ public class TextManager : MonoBehaviour
                 }
                 else
                 {
-                    //DamageBy_P = damageByPlayer.ToString();
+                   
                     DamageBy_E.text = string.Format("{0}", damageByEnemy);
                 }
 
                 if (counter)
                 {
-                    //DamageBy_E = damageByEnemy.ToString();
+                    
                     DamageBy_P.text = string.Format("{0}", damageByPlayer);
                 }
                 else
                 {
-                    //DamageBy_E = " - ";
+                   
                     DamageBy_P.text = string.Format("-");
                     damageByPlayer = 0;
 

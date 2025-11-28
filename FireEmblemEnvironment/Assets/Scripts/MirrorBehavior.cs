@@ -19,7 +19,6 @@ public class MirrorBehavior : MonoBehaviour
 
     bool isTurn = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         gridManager = this.transform.parent.GetComponent<GridManager>();
@@ -29,11 +28,9 @@ public class MirrorBehavior : MonoBehaviour
         augmentationManager = GameObject.Find("AugmentationManager").GetComponent<AugmentationManager>();
         textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
         DemoRecorderManager = GameObject.Find("DemoRecorderManager").transform;
-        //controlledUnits = envManager.enemies.ToList();
         controlledUnits = new List<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         isTurn = turnGameManager.isEnemyTurn;
@@ -51,13 +48,7 @@ public class MirrorBehavior : MonoBehaviour
 
             // Wait for UI to disappear, then perform action
             StartCoroutine(WaitForStatsUI(1.5f, selectedUnit));
-        
-         
-            // else
-            // {
-            //     StandardAlgorithm(selectedUnit);
-            // }
-
+    
 
         }
 
@@ -115,11 +106,6 @@ public class MirrorBehavior : MonoBehaviour
         List<Tile> moves = currentUnit.GetTilesInRange(0);
         List<Tile> attackableUnits = envManager.GetAttackableUnitsTiles(selectedUnit);
 
-        // First check for your unit if there is any target unit in range
-        // if there is, check for each target unit how much damage you will do
-        // later when counterattack is implemented, check how much damage target enemy can do
-        // choose to attack the unit that you deal the most damage to
-
         if (attackableUnits.Count > 0)
         {
 
@@ -159,13 +145,10 @@ public class MirrorBehavior : MonoBehaviour
 
             UnitInformation target = bestAttack.GetComponent<UnitInformation>();
            
-            // Note to self: ik denk dat wat er nu mis is dat alle mogelijke tiles geblokkeerd worden door elkaar. 
-            // dus andere enemies staan on de launchable tiles
-            // --> zorg ervoor dat ze een random stap doen als dit het geval is
             if (target)
             {
                 currentUnit.WantToAttack(target);
-                //List<Tile> launchableMoves = currentUnit.GetTilesInRange(3);
+           
                 List<Tile> launchableMoves = gridManager.GetAttackTilesInRange(targetTile, currentUnit.attackRange, moves);
 
                 // check if there is a unit already at this tile
@@ -190,7 +173,7 @@ public class MirrorBehavior : MonoBehaviour
 
                     if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining) textManager.ShowCombatUI(true);
                     performAction(launchableMoves[randomAction], 2);
-                    //currentUnit.PushAction(launchableMoves[randomAction], 2);
+                 
                 }
                 // else just move
                 else
@@ -208,7 +191,6 @@ public class MirrorBehavior : MonoBehaviour
             {
                 Debug.LogWarning("Fix bug; no target found");
                 performAction(null, 0);
-                //currentUnit.PushAction(null, 0);
                 return;
             }
 
@@ -223,7 +205,7 @@ public class MirrorBehavior : MonoBehaviour
 
             Tile selectedTile = SelectTileCloserToTarget(moves, targetTile);
             performAction(selectedTile, 1);
-            //currentUnit.PushAction(selectedTile, 1);
+        
         }
 
     }
@@ -241,17 +223,14 @@ public class MirrorBehavior : MonoBehaviour
 
         if (!DemoRecorderManager.GetComponent<DemoRecorderDummyAgent>().startTraining)
         {
-            //textManager.ShowEnemyStats(false, enemyScript.unitIndex);
+          
             StartCoroutine(WaitForCombatUI(3f, tile, actionType));
         }
         else
         {
 
-
             enemyScript.performAction(tile, actionType);
-
-
-            enemyScript.endUnitTurn(); //should this be uncommented? -- for now YES
+            enemyScript.endUnitTurn(); 
         }
 
 
@@ -337,7 +316,7 @@ public class MirrorBehavior : MonoBehaviour
                 currentUnit.WantToAttack(target.GetComponent<UnitInformation>());
             }
 
-            //currentUnit.WantToAttack(target.GetComponent<UnitInformation>());
+           
             List<Tile> launchableMoves = currentUnit.GetTilesInRange(3);
 
             // check if there is a unit already at this tile
@@ -366,7 +345,7 @@ public class MirrorBehavior : MonoBehaviour
             }
 
         }
-        // otherwise just move
+     
         else
         {
             // just move

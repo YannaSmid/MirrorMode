@@ -197,7 +197,7 @@ public class AugmentationManager : MonoBehaviour
                 performer = env.units[performerIndex];
             }
 
-            //turnGameManager.enableTurn(performer, false);
+        
 
             Vector2 mirroredPos = gridManager.MirrorPosition(tile, mirroredOrientation[0], mirroredOrientation[1]);
 
@@ -234,14 +234,14 @@ public class AugmentationManager : MonoBehaviour
                 // finally perform the mirrored action
                 if (isEnemy)
                 {
-                    //performer.GetComponent<EnemyInformation>().performAction(mirroredTile, actionType);
+                    
                     performer.GetComponent<EnemyInformation>().PushAction(mirroredTile, actionType);
 
                 }
                 else
                 {
                     performer.GetComponent<UnitInformation>().PushAction(mirroredTile, actionType);
-                    //performer.GetComponent<UnitInformation>().performAction(mirroredTile, actionType);
+                  
 
                 }
 
@@ -258,7 +258,7 @@ public class AugmentationManager : MonoBehaviour
                 else
                 {
                     performer.GetComponent<UnitInformation>().PushAction(mirroredTile, actionType);
-                    //performer.GetComponent<UnitInformation>().performAction(mirroredTile, actionType);
+                    
                 }
 
             }

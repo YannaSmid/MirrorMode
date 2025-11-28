@@ -20,8 +20,6 @@ public class MoveToTargetAgent : Agent
         transform.localPosition = new Vector3(Random.Range(-3.5f, -1.5f), Random.Range(-3.5f, 3.5f));
         target.localPosition = new Vector3(Random.Range(1.5f, 3.5f), Random.Range(-3.5f, 3.5f));
 
-        // env.localRotation  = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-        // transform.rotation = Quaternion.identity;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -32,7 +30,6 @@ public class MoveToTargetAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Debug.Log(actions.ContinuousActions.Length);
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
     

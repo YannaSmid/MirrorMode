@@ -68,26 +68,17 @@ public class UnitInformation : MonoBehaviour
       
         trainingAgent = this.GetComponent<StrategyUnitAgent>();
         unitIndex = envManager.GetUnitIndex(this.transform, isEnemy);
-        // TO DO: give warning or shut down system if no training agent
         Start();
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        //this.transform.position = initialPosition;
-        //envManager.StartNewEpisode();
-        //newPosition = initialPosition;
+
         spriteRenderer = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         weaponSprite = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
         spriteRenderer.color = initialColor;
         initialHP = health;
-
-        // int typeInd = Random.Range(0, weaponTypes.Count());
-        // unitWeapon = weaponTypes[typeInd];
-
-        // typeInd = Random.Range(0, unitTypes.Count());
-        // unitType = unitTypes[typeInd];
 
         SetTypeEffects();
   
@@ -107,27 +98,23 @@ public class UnitInformation : MonoBehaviour
         {
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
         }
 
         else if (unitType == "cavalry")
         {
             stepSize = 3;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
         }
         else if (unitType == "flying")
         {
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
         }
 
         else if (unitType == "heavyArmor")
         {
             stepSize = 1;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
         }
 
 
@@ -136,7 +123,6 @@ public class UnitInformation : MonoBehaviour
             unitType = "infantry";
             stepSize = 2;
             spriteRenderer.sprite = textManager.GetCharacter(GetUnitType());
-            //attackRange = 1;
         }
 
         if (unitWeapon == null)
@@ -268,7 +254,6 @@ public class UnitInformation : MonoBehaviour
         return System.Array.IndexOf(unitTypes, unitType);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Check if it's your turn
@@ -291,11 +276,7 @@ public class UnitInformation : MonoBehaviour
         trainingAgent.attackTiles = attackTilesList;
         trainingAgent.attackableUnits = attackableUnitTiles;
 
-
-
         currentTile = gridManager.GetTileAtPosition((int)newPosition.x, (int)newPosition.y);
-
-        //spriteRenderer.color = initialColor;
     }
 
     public void ResetInformation()
@@ -343,9 +324,6 @@ public class UnitInformation : MonoBehaviour
         this.transform.localPosition = newPosition;
 
         turnGameManager.disableTurn(this.gameObject.transform, isEnemy);
-        // NOTE TO SELF: look at more efficient ways to initialize cuz startround is already called for each unit
-        // envManager.InitializeInformation(0);
-        // envManager.InitializeInformation(1);
 
     }
 
@@ -373,23 +351,23 @@ public class UnitInformation : MonoBehaviour
     {
         Vector2 selectedTile = new Vector2();
 
-        //int targetInd = -1;
+
         switch (actionType)
         {
             case 0: // wait
-                //Debug.Log("Go idle");
+          
                 selectedTile = gridManager.GetPositionFromTile(currentTile);
                 MoveUnit((int)selectedTile.x, (int)selectedTile.y);
                 break;
                 
             case 1: // move
-                //Debug.Log("Move");
+          
                 selectedTile = gridManager.GetPositionFromTile(tile);
                 MoveUnit((int)selectedTile.x, (int)selectedTile.y);
                 break;
 
             case 2: // attack
-                //Debug.Log("Attack");
+               
                 selectedTile = gridManager.GetPositionFromTile(tile);
                 MoveUnit((int)selectedTile.x, (int)selectedTile.y);
                 combatManager.StartCombat(isEnemy);
@@ -464,12 +442,11 @@ public class UnitInformation : MonoBehaviour
 
         turnGameManager.disableTurn(this.gameObject.transform, isEnemy);
         attackableUnitTiles.Clear();
-        //combatManager.ResetCombat();
-        //CancelAttack();
+
 
         foreach (Tile tile in tilesInRangeAttack)
         {
-            //tile.HighlightSelected();
+            
             tile.launchAttack = false;
         }
         
@@ -541,7 +518,6 @@ public class UnitInformation : MonoBehaviour
         if (!clicked)
         {
 
-            //currentTile.HighlightTiles(stepSize, attackRange);
             spriteRenderer.color = highlightedColor;
 
 
@@ -604,16 +580,15 @@ public class UnitInformation : MonoBehaviour
         }
         combatManager.SetAttacker(this.transform);
         combatManager.SetTarget(enemy.transform, isEnemy);
-        //combatManager.StartCombat(this.transform, enemy.transform, isEnemy);
 
     }
 
-    // is not used anymore i think
+  
     public void CancelAttack()
     {
         foreach (Tile tile in tilesInRangeAttack)
         {
-            //tile.HighlightSelected();
+            
             tile.launchAttack = false;
         }
         combatManager.ResetCombat();
@@ -650,7 +625,6 @@ public class UnitInformation : MonoBehaviour
 
     }
 
-    // TO DO: Alive function for new episode
     public void Respawn()
     {
 
@@ -660,7 +634,7 @@ public class UnitInformation : MonoBehaviour
 
         spriteRenderer.enabled = true;
         weaponSprite.enabled = true;
-        //this.enabled = true;
+     
     }
 
     private void FadeOut()
@@ -687,7 +661,6 @@ public class UnitInformation : MonoBehaviour
     IEnumerator WaitBetweenTurns(float t)
     {
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(t);
 
         isSelected = false;
@@ -698,9 +671,6 @@ public class UnitInformation : MonoBehaviour
 
         if (turnGameManager.gameEnded)
         {
-            Debug.Log("End Game");
-
-            // if (!envManager.augmentated) turnGameManager.EndGame();
 
             if (augmentationManager.enableAugmentation)
             {
@@ -712,8 +682,7 @@ public class UnitInformation : MonoBehaviour
             {
                 if (turnGameManager.gameWon)
                 {
-                    trainingAgent.AddReward(5f);
-                    Debug.Log("GAME WON");
+                    trainingAgent.AddReward(1f);
                 }
                 else
                 {

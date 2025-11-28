@@ -14,8 +14,8 @@ using Unity.MLAgents.Policies;
 public class StrategyEnemyAgent : Agent
 {
     [Header("References")]
-    public UnitInformation unitController; // Your script that calls setTilesInRange()
-    public EnemyInformation enemyController; // Your script that calls setTilesInRange()
+    public UnitInformation unitController; 
+    public EnemyInformation enemyController; 
     private UnitInformation targetUnit;
     private EnemyInformation targetEnemy;
     public GridManager gridManager;
@@ -67,10 +67,6 @@ public class StrategyEnemyAgent : Agent
      
         enemyController = this.transform.GetComponent<EnemyInformation>();
         
-        // else
-        // {
-        //     unitController = this.transform.GetComponent<UnitInformation>();
-        // }
     }
 
     public void Start()
@@ -162,7 +158,7 @@ public class StrategyEnemyAgent : Agent
         List<Tile> movementTiles = unitController.GetTilesInRange(0);
         List<Tile> attackTiles = unitController.GetTilesInRange(1);
         List<Tile> attackableUnits = unitController.GetTilesInRange(2);
-        //List<Tile> launchableTiles = unitController.GetTilesInRange(3);
+       
         currentLegalTiles.Clear();
         SetAvailableActions(movementTiles, attackTiles);
 
@@ -188,10 +184,8 @@ public class StrategyEnemyAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-       // Debug.Log("COLLECT OBSERVATIONS");
        
         Transform[] targets = new Transform[4];
-        //var targetScript = null;
         Tile thisCurrentTile = null;
         int enemyWeapon;
         int unitWeapon;
@@ -216,14 +210,13 @@ public class StrategyEnemyAgent : Agent
                 unitType = targetUnit.GetUnitType();
                 sensor.AddOneHotObservation((int)unitWeapon, NUM_WEAPON_TYPES);
                 sensor.AddOneHotObservation((int)unitType, NUM_UNIT_TYPES);
-                // add health per target
+                // add stats
                 sensor.AddObservation(NormalizeValues(targetUnit.health, 1, 100));
                 sensor.AddObservation(NormalizeValues(targetUnit.atk, 1, 100));
                 sensor.AddObservation(NormalizeValues(targetUnit.def, 1, 100));
                 sensor.AddObservation(NormalizeValues(targetUnit.res, 1, 100));
                 sensor.AddObservation(NormalizeValues(targetUnit.spd, 1, 100));
 
-                // add other stats
             }
             else
             {
@@ -285,7 +278,7 @@ public class StrategyEnemyAgent : Agent
         
         if (!maskActions) return;
 
-        //Debug.Log("WRITE ACTION MASK");
+
         // Prevents the agent from picking an action that is not allowed
         var positionX = (int)transform.localPosition.x;
         var positionY = (int)transform.localPosition.y;
@@ -296,14 +289,13 @@ public class StrategyEnemyAgent : Agent
         attackTiles = envManager.GetAttackTiles(this.transform);
         attackableUnits = envManager.GetAttackableUnitsTiles(this.transform);
 
-        //var maxPosition = (int)m_ResetParams.GetWithDefault("gridSize", 5f) - 1;
+      
         List<int> validTiles = new List<int>();
 
         // disable attack if no targets close
         if (attackableUnits.Count == 0)
         {
-            Debug.Log("No targets in range");
-            
+ 
             actionMask.SetActionEnabled(0, 2, false);
             
         }
@@ -315,14 +307,14 @@ public class StrategyEnemyAgent : Agent
                 Vector2 pos = gridManager.GetPositionFromTile(tile);
                 int targetInd = gridManager.GetUnit((int)pos.x, (int)pos.y).GetComponent<UnitInformation>().unitIndex;
                 units.Remove(targetInd);
-                Debug.Log("Target " + targetInd + " can be attacked!");
+               
 
             }
 
             foreach (int i in units)
             {
                 actionMask.SetActionEnabled(2, i, false);
-                Debug.Log("Target " + i + " Is enabled");
+          
             }
         }
 
@@ -338,7 +330,7 @@ public class StrategyEnemyAgent : Agent
         if (validTiles.Count != 0)
         {
 
-            // return; // Let the agent make a random choice instead of crashing
+           
             List<int> notValidTiles = gridManager.GetAllTileIndices().Except(validTiles).ToList();
            
 
@@ -390,6 +382,7 @@ public class StrategyEnemyAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         totalActions += 1;
+        // store actions
         int selectedAction = actions.DiscreteActions[0];
         int tileIndex = actions.DiscreteActions[1];
         int targetIndex = actions.DiscreteActions[2];
@@ -402,7 +395,6 @@ public class StrategyEnemyAgent : Agent
         attackTiles = envManager.GetAttackTiles(this.transform);
         attackableUnits = envManager.GetAttackableUnitsTiles(this.transform);
     
-        Debug.Log(this.transform + " ON ACTION RECEIVE: " + selectedAction + selectedPos + " " + this.transform.localPosition + " " + tileIndex + " " + targetIndex);
 
         if (selectedTile == enemyController.currentTile && selectedAction == 1)
         {  
@@ -419,15 +411,13 @@ public class StrategyEnemyAgent : Agent
                     bool accepted = false;
 
                     // prepare for battle if target is valid
-            
                     target = envManager.units[targetIndex];
                     targetTile = target.GetComponent<UnitInformation>().currentTile;
-                    Debug.Log(this.transform + " Agent wants to attack enemy: " + target + " in env: " + envManager.transform.parent.gameObject.name);
-
+                 
 
                 if (target.GetComponent<UnitInformation>().isDead)
                 {
-                    Debug.Log("This target is already dead! Cannot attack");
+                   
                     SetReward(-0.3f);
                     performAction(null, 0);
 
@@ -438,17 +428,14 @@ public class StrategyEnemyAgent : Agent
 
                         enemyController.WantToAttack(target.GetComponent<UnitInformation>());
                         launchableTiles = enemyController.GetTilesInRange(3);
-                        //launchableTiles = gridManager.GetAttackTilesInRange(target.GetComponent<UnitInformation>().currentTile, enemyController.attackRange, movementTiles);
                     }
 
                     if (!launchableTiles.Contains(selectedTile) && accepted)
                     {
 
-                        Debug.Log("Launch tiles does not contain this action!: " + launchableTiles.Count);
                         if (launchableTiles.Count > 0)
                         {
                             selectedTile = launchableTiles[UnityEngine.Random.Range(0, launchableTiles.Count - 1)];
-                            Debug.Log("Can attack via random tile!!!");
                             combatManager.SetAttacker(this.transform);
                             combatManager.instantiateAttack = true;
 
@@ -457,7 +444,6 @@ public class StrategyEnemyAgent : Agent
 
                             if (target.GetComponent<UnitInformation>().isDead)
                             {
-                                Debug.Log("Target killed!!");
                                 AddReward(1f);
                                 kills += 1;
                             }
@@ -491,7 +477,6 @@ public class StrategyEnemyAgent : Agent
                     {
                         if (attackableUnits.Contains(targetTile))
                         {
-                            Debug.Log("Can attack!!!");
                             combatManager.SetAttacker(this.transform);
                             combatManager.instantiateAttack = true;
 
@@ -500,7 +485,6 @@ public class StrategyEnemyAgent : Agent
            
                             if (target.GetComponent<UnitInformation>().isDead)
                             {
-                                Debug.Log("Target killed!!");
                                 SetReward(1f);
                                 kills += 1;
                             }
@@ -525,8 +509,7 @@ public class StrategyEnemyAgent : Agent
                 }
                 else
                 {
-                    
-                    //SetReward(-0.3f);
+
                     performAction(null, 0);
 
                 }
@@ -539,7 +522,6 @@ public class StrategyEnemyAgent : Agent
         {
             if (!movementTiles.Contains(selectedTile))
             {
-                Debug.Log("Movement tiles does not contain this action! ");
 
                 // give negative reward
                 SetReward(-0.3f);
@@ -574,15 +556,13 @@ public class StrategyEnemyAgent : Agent
             turnGameManager.gameEnded = true;
             SetReward(-1f);
         }
-  
-    //EndTurn(); // End turn logic from your game
+
     }
 
     
     private void performAction(Tile selectedTile, int actionType)
     {
 
-        //enemyController.performAction(selectedTile, actionType);
         StartCoroutine(WaitForCombatUI(3f, selectedTile, actionType));
     
 
@@ -621,7 +601,7 @@ public class StrategyEnemyAgent : Agent
                 {
                     actionType = 1; // Move
                     tileChosen = chosenTileIndex;
-                    //tileIndex = moveTilesList.IndexOf(clickedTile);
+                  
                 }
                 else if (chosenAction == 2) // attack
                 {
@@ -630,39 +610,23 @@ public class StrategyEnemyAgent : Agent
                     tileChosen = chosenTileIndex;
                     enemyIndex = chosenTarget;
                     
-                    // NOTE TO SELF: make this universal --> should also work for enemy targeting player
                   
                 }
                 else
                 {
                     actionType = 0;
-                    // tileChosen = chosenTileIndex;
 
                 }
             }
             pushAction = false;
 
             discreteActionsOut[0] = actionType;
-            discreteActionsOut[1] = tileChosen; //--> can only contain Integers apparantly
+            discreteActionsOut[1] = tileChosen; //--> can only contain Integers
             discreteActionsOut[2] = enemyIndex;
         }
         
     }
 
-    // void Update()
-    // {
-    //     if (this.GetComponent<Unity.MLAgents.Policies.BehaviorParameters>().BehaviorType == BehaviorType.HeuristicOnly)
-    //     {
-    //         return;
-    //     }
-    //     if (unitController && unitController.isTurn && !tookAction){
-            
-    //         tookAction = true;
-    //         RequestDecision();
-    //     } 
-
-
-    // }
 
     IEnumerator WaitForCombatUI(float time, Tile tile, int actionType)
     {

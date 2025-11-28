@@ -1,0 +1,4 @@
+[UNIT: 0 round 0] Kills: 0, deaths: 0, wins: 0, attacks: 0, movements: 0, Effectives: 0, advantages: 0, disadvantages: 0
+[UNIT: 1 round 0] Kills: 0, deaths: 0, wins: 0, attacks: 0, movements: 0, Effectives: 0, advantages: 0, disadvantages: 0
+[UNIT: 2 round 0] Kills: 0, deaths: 0, wins: 0, attacks: 0, movements: 0, Effectives: 0, advantages: 0, disadvantages: 0
+[UNIT: 3 round 0] Kills: 0, deaths: 0, wins: 0, attacks: 0, movements: 0, Effectives: 0, advantages: 0, disadvantages: 0
